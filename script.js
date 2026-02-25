@@ -1,6 +1,6 @@
 // ===== Config =====
 const SECRET_CODE = "123456789";
-const FINAL_PHRASE = "AU PLAFOND";
+const FINAL_PHRASE = "SUR LA FENETRE";
 
 // Each puzzle has a main question and an alternate (shown after 2 wrong answers)
 // Letters: מ,ע,ל, ,ה,ר,מ,ק,ו,ל = 9 non-space letters
@@ -8,7 +8,7 @@ const FINAL_PHRASE = "AU PLAFOND";
 
 const PUZZLES = [
   {
-    letter: "A",
+    letter: "S",
     category: "אלגברה",
     main: {
       question: "אם 5x - 3(2x + 1) = 7, מהו x?",
@@ -36,7 +36,7 @@ const PUZZLES = [
     }
   },
   {
-    letter: "P",
+    letter: "R",
     category: "ידע כללי",
     main: {
       question: "מי היה ראש הממשלה הראשון של ישראל?",
@@ -92,7 +92,7 @@ const PUZZLES = [
     }
   },
   {
-    letter: "O",
+    letter: "E",
     category: "לוגיקה מתקדמת",
     main: {
       question: "בכיתה יש 30 תלמידים. 18 אוהבים מתמטיקה, 15 אוהבים מדעים, ו-8 אוהבים את שניהם. כמה לא אוהבים אף אחד?",
@@ -120,7 +120,7 @@ const PUZZLES = [
     }
   },
   {
-    letter: "D",
+    letter: "E",
     category: "חשיבה מתמטית",
     main: {
       question: "הסכום של כל המספרים השלמים מ-1 עד 50 הוא:",
@@ -131,6 +131,48 @@ const PUZZLES = [
       question: "הסכום של כל המספרים הזוגיים מ-2 עד 100 הוא:",
       answers: ["2500", "2450", "2550", "2600"],
       correct: 2
+    }
+  },
+  {
+    letter: "T",
+    category: "הנדסה",
+    main: {
+      question: "במשולש ישר זווית, אם הניצבים הם 3 ו-4, מה אורך היתר?",
+      answers: ["5", "6", "7", "8"],
+      correct: 0
+    },
+    alt: {
+      question: "מה שטח ריבוע שהיקפו 20 ס\"מ?",
+      answers: ["20", "25", "16", "100"],
+      correct: 1
+    }
+  },
+  {
+    letter: "R",
+    category: "לוגיקה",
+    main: {
+      question: "אבא של משה הוא הבן של הסבא שלי. מי אני למשה?",
+      answers: ["דוד", "אבא", "אחי", "בן דוד"],
+      correct: 2
+    },
+    alt: {
+      question: "אם אתמול היה יום שלישי, איזה יום יהיה מחרתיים?",
+      answers: ["חמישי", "שישי", "שבת", "רביעי"],
+      correct: 1
+    }
+  },
+  {
+    letter: "E",
+    category: "ידע כללי",
+    main: {
+      question: "מהי עיר הבירה של צרפת?",
+      answers: ["מרסיי", "ליון", "ניס", "פריז"],
+      correct: 3
+    },
+    alt: {
+      question: "כמה חודשים יש בשנה מעוברת עברית?",
+      answers: ["12", "13", "14", "11"],
+      correct: 1
     }
   }
 ];
