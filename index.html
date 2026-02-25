@@ -36,8 +36,25 @@
     <div class="snowflake">❆</div>
   </div>
 
+  <!-- Verification Screen -->
+  <div id="verification-screen" class="screen active">
+    <div class="card verification-card">
+      <div class="verification-header">
+        <h1>Verify you are Noga</h1>
+        <p class="verification-subtitle">Click on all your family members</p>
+      </div>
+      <div id="captcha-grid" class="captcha-grid">
+        <!-- Images injected by JS -->
+      </div>
+      <button id="verify-captcha-btn" class="btn btn-primary" onclick="checkCaptcha()">
+        <span>Verify</span>
+      </button>
+      <p id="captcha-error" class="captcha-error hidden">Not quite right, try again!</p>
+    </div>
+  </div>
+
   <!-- Welcome Screen -->
-  <div id="welcome-screen" class="screen active">
+  <div id="welcome-screen" class="screen">
     <div class="card welcome-card">
       <div class="santa-hat">🎅</div>
       <h1>סנטה הסודי</h1>

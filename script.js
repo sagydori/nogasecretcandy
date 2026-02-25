@@ -177,6 +177,109 @@ const PUZZLES = [
   }
 ];
 
+// ===== Captcha Data =====
+const ALL_PHOTOS = [
+  "photo/3318fa05fb8f6574a3ba2ed415ed1a27.jpg",
+  "photo/OIF.webp",
+  "photo/OIP (1).webp",
+  "photo/OIP.webp",
+  "photo/R.jpg",
+  "photo/WhatsApp Image 2026-02-25 at 6.19.47 P.jpeg",
+  "photo/WhatsApp Image 2026-02-25 at 6.19.47 PM.jpeg",
+  "photo/WhatsApp Image 2026-02-25 at 6.19.48 P.jpeg",
+  "photo/WhatsApp Image 2026-02-25 at 6.19.48 PM.jpeg",
+  "photo/WhatsApp Image 2026-02-25 at 6.19.49 P.jpeg",
+  "photo/WhatsApp Image 2026-02-25 at 6.19.49 PM.jpeg",
+  "photo/download (1).webp",
+  "photo/download.webp",
+  "photo/pexels-karola-g-6333499.jpg",
+  "photo/random-white-guy-i-found-on-google-by-looking-up-random-v0-lrjjyc9stku81.webp",
+  "photo/woman-home-beauty-portrait-happy-random-scenes_425671-1833.avif"
+];
+
+const FAMILY_FILES = ALL_PHOTOS.filter(f => f.includes("WhatsApp Image"));
+const DISTRACTOR_FILES = ALL_PHOTOS.filter(f => !f.includes("WhatsApp Image"));
+
+let selectedCaptchaImages = new Set();
+let currentCaptchaPool = [];
+
+// Shake function for captcha error
+function shakeElement(el) {
+  el.classList.add("shake-animation");
+  setTimeout(() => el.classList.remove("shake-animation"), 400);
+}
+
+// Shuffles an array
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// Initialize/Reshuffle Captcha
+function initCaptcha() {
+  const grid = document.getElementById("captcha-grid");
+  const errorMsg = document.getElementById("captcha-error");
+  grid.innerHTML = "";
+  errorMsg.classList.add("hidden");
+  selectedCaptchaImages.clear();
+
+  // Use all available photos shuffled
+  currentCaptchaPool = shuffleArray([...ALL_PHOTOS]);
+
+  currentCaptchaPool.forEach((src, idx) => {
+    const item = document.createElement("div");
+    item.className = "captcha-item";
+    item.innerHTML = `<img src="${src}" alt="verify" loading="lazy">`;
+    item.onclick = () => toggleCaptchaSelection(item, src);
+    grid.appendChild(item);
+  });
+}
+
+function toggleCaptchaSelection(item, src) {
+  if (selectedCaptchaImages.has(src)) {
+    selectedCaptchaImages.delete(src);
+    item.classList.remove("selected");
+  } else {
+    selectedCaptchaImages.add(src);
+    item.classList.add("selected");
+  }
+}
+
+function checkCaptcha() {
+  const isCorrect = Array.from(selectedCaptchaImages).every(img => FAMILY_FILES.includes(img)) &&
+    selectedCaptchaImages.size === FAMILY_FILES.length;
+
+  if (isCorrect) {
+    proceedToWelcome();
+  } else {
+    const card = document.querySelector(".verification-card");
+    const errorMsg = document.getElementById("captcha-error");
+    errorMsg.classList.remove("hidden");
+
+    // Animate error
+    card.classList.add("wrong-feedback");
+    setTimeout(() => {
+      card.classList.remove("wrong-feedback");
+      initCaptcha(); // Reshuffle
+    }, 1000);
+  }
+}
+
+function proceedToWelcome() {
+  const verification = document.getElementById("verification-screen");
+  const welcome = document.getElementById("welcome-screen");
+
+  verification.classList.remove("active");
+  setTimeout(() => {
+    verification.style.display = "none";
+    welcome.style.display = "flex";
+    requestAnimationFrame(() => welcome.classList.add("active"));
+  }, 400);
+}
+
 // ===== State =====
 let currentPuzzle = 0;
 let revealedLetters = [];
@@ -619,6 +722,7 @@ function launchConfetti() {
 
 // ===== Enter key on code input =====
 document.addEventListener("DOMContentLoaded", () => {
+  initCaptcha();
   const codeInput = document.getElementById("code-input");
   if (codeInput) {
     codeInput.addEventListener("keydown", (e) => {
