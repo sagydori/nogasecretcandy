@@ -1,5 +1,5 @@
 // ===== Config =====
-const SECRET_CODE = "123456789";
+const SECRET_CODE = "9765625";
 const FINAL_PHRASE = "SUR LA FENETRE";
 
 // Each puzzle has a main question and an alternate (shown after 2 wrong answers)
@@ -730,3 +730,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
